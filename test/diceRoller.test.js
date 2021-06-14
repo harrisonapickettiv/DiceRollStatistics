@@ -1,4 +1,4 @@
-import { randInt } from '../src/diceRoller';
+import { randInt, roll } from '../src/diceRoller';
 
 const testCount = 1000;
 
@@ -20,5 +20,27 @@ test('randInt generates a number in a specified range', () => {
   randomNumbers.forEach((i) => {
     expect(i).toBeGreaterThanOrEqual(1);
     expect(i).toBeLessThanOrEqual(4);
+  });
+});
+
+test('roll("d4") returns an object where the property "total" is a number between 1 and 4', () => {
+  const diceRolls = [];
+  for (let i = 0; i < testCount; i++) {
+    diceRolls.push(roll('d4'));
+  }
+  diceRolls.forEach((roll) => {
+    expect(roll.total).toBeGreaterThanOrEqual(1);
+    expect(roll.total).toBeLessThanOrEqual(4);
+  });
+});
+
+test('roll("1d4") returns an object where the property "total" is a number between 1 and 4', () => {
+  const diceRolls = [];
+  for (let i = 0; i < testCount; i++) {
+    diceRolls.push(roll('1d4'));
+  }
+  diceRolls.forEach((roll) => {
+    expect(roll.total).toBeGreaterThanOrEqual(1);
+    expect(roll.total).toBeLessThanOrEqual(4);
   });
 });
