@@ -1,6 +1,6 @@
 import { randInt, roll } from '../src/diceRoller';
 
-const testCount = 1000;
+const testCount = 1;
 
 describe('Tests with randInt', () => {
   test('randInt generates an integer', () => {
@@ -170,6 +170,37 @@ describe('Tests with roll("4d6h3")', () => {
         .sort((a, b) => b - a)
         .slice(0, results.length - 1);
       expect(highest.reduce((acc, i) => acc + i, 0)).toBe(total);
+    });
+  });
+});
+
+describe('Tests with roll("5d6l3")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('5d6l3'));
+    }
+  });
+
+  test('roll("5d6l3") returns an object where the property "total" is a number between 3 and 18', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(3);
+      expect(roll.total).toBeLessThanOrEqual(18);
+    });
+  });
+
+  test('roll("5d6l3") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
+  test('roll("5d6l3") returns an object where the property "total" is equal to the sum of the lowest 3 elements of "results"', () => {
+    diceRolls.forEach(({ total, results }) => {
+      const lowest = results
+        .sort((a, b) => b - a)
+        .slice(results.length - 3, results.length);
+      expect(lowest.reduce((acc, i) => acc + i, 0)).toBe(total);
     });
   });
 });
