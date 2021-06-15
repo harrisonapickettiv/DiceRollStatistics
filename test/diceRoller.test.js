@@ -142,3 +142,34 @@ describe('Tests with roll("4d8*13")', () => {
     });
   });
 });
+
+describe('Tests with roll("4d6h3")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4d6h3'));
+    }
+  });
+
+  test('roll("4d6h3") returns an object where the property "total" is a number between 3 and 18', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(3);
+      expect(roll.total).toBeLessThanOrEqual(18);
+    });
+  });
+
+  test('roll("4d6h3") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("4d6h3") returns an object where the property "total" is equal to the sum of the highest 3 elements of "results"', () => {
+    diceRolls.forEach(({ total, results }) => {
+      const highest = results
+        .sort((a, b) => b - a)
+        .slice(0, results.length - 1);
+      expect(highest.reduce((acc, i) => acc + i, 0)).toBe(total);
+    });
+  });
+});
