@@ -8,10 +8,10 @@ const randInt = (
 };
 
 const diceRegexp =
-  /^(\d+)?d(\d+)(?:(\+?-?\d+)|(?:(\*?)(\d+)))?(?:h(\d+)|l(\d+))?$/;
+  /^(\d+)?d(\d+)(?:h(\d+)|l(\d+))?(?:(\+?-?\d+)|(?:(\*?)(\d+)))?$/;
 
 const roll = (exp) => {
-  const [, dice, sides, modifier, multiply, multiple, highest, lowest] =
+  const [, dice, sides, highest, lowest, modifier, multiply, multiple] =
     exp.match(diceRegexp);
 
   const results = [];

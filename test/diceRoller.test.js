@@ -189,7 +189,7 @@ describe('Tests with roll("5d6l3")', () => {
     });
   });
 
-  test('roll("5d6l3") returns an object where the property "results" has a length of 4', () => {
+  test('roll("5d6l3") returns an object where the property "results" has a length of 5', () => {
     diceRolls.forEach(({ results }) => {
       expect(results.length).toBe(5);
     });
@@ -201,6 +201,68 @@ describe('Tests with roll("5d6l3")', () => {
         .sort((a, b) => b - a)
         .slice(results.length - 3, results.length);
       expect(lowest.reduce((acc, i) => acc + i, 0)).toBe(total);
+    });
+  });
+});
+
+describe('Tests with roll("4d6h3+10")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4d6h3+10'));
+    }
+  });
+
+  test('roll("4d6h3+10") returns an object where the property "total" is a number between 13 and 28', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(13);
+      expect(roll.total).toBeLessThanOrEqual(28);
+    });
+  });
+
+  test('roll("4d6h3+10") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("4d6h3+10") returns an object where the property "total" is equal to the sum of the highest 3 elements of "results"', () => {
+    diceRolls.forEach(({ total, results }) => {
+      const highest = results
+        .sort((a, b) => b - a)
+        .slice(0, results.length - 1);
+      expect(highest.reduce((acc, i) => acc + i, 0) + 10).toBe(total);
+    });
+  });
+});
+
+describe('Tests with roll("4d6h3-10")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4d6h3-10'));
+    }
+  });
+
+  test('roll("4d6h3-10") returns an object where the property "total" is a number between -7 and 8', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(-7);
+      expect(roll.total).toBeLessThanOrEqual(8);
+    });
+  });
+
+  test('roll("4d6h3-10") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("4d6h3-10") returns an object where the property "total" is equal to the sum of the highest 3 elements of "results"', () => {
+    diceRolls.forEach(({ total, results }) => {
+      const highest = results
+        .sort((a, b) => b - a)
+        .slice(0, results.length - 1);
+      expect(highest.reduce((acc, i) => acc + i, 0) - 10).toBe(total);
     });
   });
 });
