@@ -114,3 +114,31 @@ describe('Tests with roll("5d6-10")', () => {
     });
   });
 });
+
+describe('Tests with roll("4d8*13")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4d8*13'));
+    }
+  });
+
+  test('roll("4d8*13") returns an object where the property "total" is a number between 52 and 416', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(52);
+      expect(roll.total).toBeLessThanOrEqual(416);
+    });
+  });
+
+  test('roll("4d8*13") returns an object where "total" evenly divisible by 13', () => {
+    diceRolls.forEach(({ total }) => {
+      expect(total % 13).toBe(0);
+    });
+  });
+
+  test('roll("4d8*13") returns an object where "total" is equal to the sum of "results" times 13', () => {
+    diceRolls.forEach(({ total, results }) => {
+      expect(results.reduce((acc, i) => acc + i, 0) * 13).toBe(total);
+    });
+  });
+});

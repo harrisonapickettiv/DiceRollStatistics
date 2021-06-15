@@ -7,18 +7,23 @@ const randInt = (
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const diceRegexp = /^(\d+)?d(\d+)(?:(\+?-?\d+))?$/;
+const diceRegexp = /^(\d+)?d(\d+)(?:(\+?-?\d+)|(?:(\*?)(\d+)))?$/;
 
 const roll = (exp) => {
-  const [, dice, sides, modifier] = exp.match(diceRegexp);
+  const [, dice, sides, modifier, multiply, multiple] = exp.match(diceRegexp);
   const results = [];
 
   for (let i = 0; i < (dice || 1); i++) {
     results.push(randInt(1, sides));
   }
-  const total =
-    results.reduce((acc, i) => acc + i, 0) +
-    (modifier ? parseInt(modifier) : 0);
+
+  let total = results.reduce((acc, i) => acc + i, 0);
+  if (modifier) {
+    total += parseInt(modifier);
+  }
+  if (multiply) {
+    total *= multiple;
+  }
 
   return { results, total };
 };
