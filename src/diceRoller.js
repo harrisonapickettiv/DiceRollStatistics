@@ -10,8 +10,9 @@ const randInt = (
 const basicDiceRegexp = '(\\d+)?d(\\d+)';
 const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
 const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
+const difficultyRegexp = '(?:d(\\d+))?';
 const diceRegexp = new RegExp(
-  `^${basicDiceRegexp}${keepRegexp}${modifierRegexp}$`
+  `^${basicDiceRegexp}${keepRegexp}${difficultyRegexp}${modifierRegexp}$`
 );
 
 const sum = (list) => {
@@ -39,8 +40,17 @@ const sumLowest = (results, lowest) => {
 };
 
 const roll = (exp) => {
-  const [, dice, sides, keepHighest, keepLowest, modifier, multiply, multiple] =
-    exp.match(diceRegexp);
+  const [
+    ,
+    dice,
+    sides,
+    keepHighest,
+    keepLowest,
+    difficulty,
+    modifier,
+    multiply,
+    multiple,
+  ] = exp.match(diceRegexp);
 
   const results = rollDice(dice, sides);
 
@@ -49,6 +59,8 @@ const roll = (exp) => {
     total = sumHighest(results, keepHighest);
   } else if (keepLowest) {
     total = sumLowest(results, keepLowest);
+  } else if (difficulty) {
+    total = results.filter((r) => r >= difficulty).length;
   } else {
     total = sum(results);
   }

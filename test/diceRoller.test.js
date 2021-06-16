@@ -1,6 +1,6 @@
 import { randInt, roll } from '../src/diceRoller';
 
-const testCount = 1;
+const testCount = 1000;
 
 describe('Tests with randInt', () => {
   test('randInt generates an integer', () => {
@@ -263,6 +263,34 @@ describe('Tests with roll("4d6h3-10")', () => {
         .sort((a, b) => b - a)
         .slice(0, results.length - 1);
       expect(highest.reduce((acc, i) => acc + i, 0) - 10).toBe(total);
+    });
+  });
+});
+
+describe('Tests with roll("5d6d3")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('5d6d3'));
+    }
+  });
+
+  test('roll("5d6d3") returns an object where the property "total" is a number between 0 and 5', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(0);
+      expect(roll.total).toBeLessThanOrEqual(5);
+    });
+  });
+
+  test('roll("5d6d3") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
+  test('roll("5d6d3") returns an object where the property "total" is equal to the number of results greater than or equal to 3', () => {
+    diceRolls.forEach(({ total, results }) => {
+      expect(results.filter((r) => r >= 3).length).toBe(total);
     });
   });
 });
