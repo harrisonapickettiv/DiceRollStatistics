@@ -11,7 +11,7 @@ const basicDiceRegexp = '(\\d+)?d(\\d+)';
 const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
 const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
 const difficultyRegexp = '(?:d(\\d+)|m(\\d+))?';
-const targetRegexp = '(?:t(\\d+))?';
+const targetRegexp = '(?:t(\\d+)|n(\\d+))?';
 const diceRegexp = new RegExp(
   `^${basicDiceRegexp}${keepRegexp}${difficultyRegexp}${modifierRegexp}${targetRegexp}$`
 );
@@ -53,6 +53,7 @@ const roll = (exp) => {
     multiply,
     multiple,
     target,
+    negate,
   ] = exp.match(diceRegexp);
 
   const results = rollDice(dice, sides);
@@ -80,6 +81,9 @@ const roll = (exp) => {
   let success;
   if (target) {
     success = total >= parseInt(target);
+  }
+  if (negate) {
+    success = total <= parseInt(negate);
   }
 
   return { results, total, success };
