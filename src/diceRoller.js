@@ -7,8 +7,12 @@ const randInt = (
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const diceRegexp =
-  /^(\d+)?d(\d+)(?:h(\d+)|l(\d+))?(?:(\+?-?\d+)|(?:(\*?)(\d+)))?$/;
+const basicDiceRegexp = '(\\d+)?d(\\d+)';
+const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
+const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
+const diceRegexp = new RegExp(
+  `^${basicDiceRegexp}${keepRegexp}${modifierRegexp}$`
+);
 
 const roll = (exp) => {
   const [, dice, sides, highest, lowest, modifier, multiply, multiple] =
