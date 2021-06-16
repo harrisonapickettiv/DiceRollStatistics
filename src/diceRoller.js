@@ -11,8 +11,9 @@ const basicDiceRegexp = '(\\d+)?d(\\d+)';
 const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
 const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
 const difficultyRegexp = '(?:d(\\d+)|m(\\d+))?';
+const targetRegexp = '(?:t(\\d+))?';
 const diceRegexp = new RegExp(
-  `^${basicDiceRegexp}${keepRegexp}${difficultyRegexp}${modifierRegexp}$`
+  `^${basicDiceRegexp}${keepRegexp}${difficultyRegexp}${modifierRegexp}${targetRegexp}$`
 );
 
 const sum = (list) => {
@@ -51,6 +52,7 @@ const roll = (exp) => {
     modifier,
     multiply,
     multiple,
+    target,
   ] = exp.match(diceRegexp);
 
   const results = rollDice(dice, sides);
@@ -67,6 +69,7 @@ const roll = (exp) => {
   } else {
     total = sum(results);
   }
+
   if (modifier) {
     total += parseInt(modifier);
   }
@@ -74,7 +77,12 @@ const roll = (exp) => {
     total *= multiple;
   }
 
-  return { results, total };
+  let success;
+  if (target) {
+    success = total >= parseInt(target);
+  }
+
+  return { results, total, success };
 };
 
 export { randInt, roll };

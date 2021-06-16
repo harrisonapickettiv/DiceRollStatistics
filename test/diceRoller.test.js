@@ -322,3 +322,41 @@ describe('Tests with roll("5d6m3")', () => {
     });
   });
 });
+
+describe('Tests with roll("5d6t20")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('5d6t20'));
+    }
+  });
+
+  test('roll("5d6t20") returns an object where the property "total" is a number between 5 and 30', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(5);
+      expect(roll.total).toBeLessThanOrEqual(30);
+    });
+  });
+
+  test('roll("5d6t20") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
+  test('roll("5d6t20") returns an object where "total" is equal to the sum of "results"', () => {
+    diceRolls.forEach(({ total, results }) => {
+      expect(results.reduce((acc, i) => acc + i, 0)).toBe(total);
+    });
+  });
+
+  test('roll("5d6t20") returns an object where the property "success" is true when the property "total" is greater than or equal to 20 and false otherwise', () => {
+    diceRolls.forEach(({ total, success }) => {
+      if (total >= 20) {
+        expect(success).toBeTruthy();
+      } else {
+        expect(success).toBeFalsy();
+      }
+    });
+  });
+});
