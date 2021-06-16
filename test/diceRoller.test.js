@@ -294,3 +294,31 @@ describe('Tests with roll("5d6d3")', () => {
     });
   });
 });
+
+describe('Tests with roll("5d6m3")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('5d6m3'));
+    }
+  });
+
+  test('roll("5d6m3") returns an object where the property "total" is a number between 0 and 5', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(0);
+      expect(roll.total).toBeLessThanOrEqual(5);
+    });
+  });
+
+  test('roll("5d6m3") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
+  test('roll("5d6m3") returns an object where the property "total" is equal to the number of results less than or equal to 3', () => {
+    diceRolls.forEach(({ total, results }) => {
+      expect(results.filter((r) => r <= 3).length).toBe(total);
+    });
+  });
+});
