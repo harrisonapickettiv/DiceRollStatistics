@@ -398,3 +398,79 @@ describe('Tests with roll("5d6n20")', () => {
     });
   });
 });
+
+describe('Tests with roll("5d6+10t20")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('5d6+10t20'));
+    }
+  });
+
+  test('roll("5d6+10t20") returns an object where the property "total" is a number between 15 and 40', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(15);
+      expect(roll.total).toBeLessThanOrEqual(40);
+    });
+  });
+
+  test('roll("5d6+10t20") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
+  test('roll("5d6+10t20") returns an object where "total" is equal to the sum of "results" plus 10', () => {
+    diceRolls.forEach(({ total, results }) => {
+      expect(results.reduce((acc, i) => acc + i, 0) + 10).toBe(total);
+    });
+  });
+
+  test('roll("5d6+10t20") returns an object where the property "success" is true when the property "total" is greater than or equal to 20 and false otherwise', () => {
+    diceRolls.forEach(({ total, success }) => {
+      if (total >= 20) {
+        expect(success).toBeTruthy();
+      } else {
+        expect(success).toBeFalsy();
+      }
+    });
+  });
+});
+
+describe('Tests with roll("5d6+10n20")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('5d6+10n20'));
+    }
+  });
+
+  test('roll("5d6+10n20") returns an object where the property "total" is a number between 15 and 40', () => {
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(15);
+      expect(roll.total).toBeLessThanOrEqual(40);
+    });
+  });
+
+  test('roll("5d6+10n20") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
+  test('roll("5d6+10n20") returns an object where "total" is equal to the sum of "results" plus 10', () => {
+    diceRolls.forEach(({ total, results }) => {
+      expect(results.reduce((acc, i) => acc + i, 0) + 10).toBe(total);
+    });
+  });
+
+  test('roll("5d6+10n20") returns an object where the property "success" is true when the property "total" is less than or equal to 20 and false otherwise', () => {
+    diceRolls.forEach(({ total, success }) => {
+      if (total <= 20) {
+        expect(success).toBeTruthy();
+      } else {
+        expect(success).toBeFalsy();
+      }
+    });
+  });
+});
