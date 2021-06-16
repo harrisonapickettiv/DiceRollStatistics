@@ -14,28 +14,43 @@ const diceRegexp = new RegExp(
   `^${basicDiceRegexp}${keepRegexp}${modifierRegexp}$`
 );
 
-const roll = (exp) => {
-  const [, dice, sides, highest, lowest, modifier, multiply, multiple] =
-    exp.match(diceRegexp);
+const sum = (list) => {
+  return list.reduce((acc, i) => acc + i, 0);
+};
 
+const sort = (list) => {
+  return list.sort((a, b) => b - a);
+};
+
+const rollDice = (dice = 1, sides) => {
   const results = [];
-  for (let i = 0; i < (dice || 1); i++) {
+  for (let i = 0; i < dice; i++) {
     results.push(randInt(1, sides));
   }
+  return results;
+};
+
+const sumHighest = (results, highest) => {
+  return sum(sort(results).slice(0, highest));
+};
+
+const sumLowest = (results, lowest) => {
+  return sum(sort(results).slice(results.length - lowest, results.length));
+};
+
+const roll = (exp) => {
+  const [, dice, sides, keepHighest, keepLowest, modifier, multiply, multiple] =
+    exp.match(diceRegexp);
+
+  const results = rollDice(dice, sides);
 
   let total;
-  if (highest) {
-    total = results
-      .sort((a, b) => b - a)
-      .slice(0, highest)
-      .reduce((acc, i) => acc + i, 0);
-  } else if (lowest) {
-    total = results
-      .sort((a, b) => b - a)
-      .slice(results.length - lowest, results.length)
-      .reduce((acc, i) => acc + i, 0);
+  if (keepHighest) {
+    total = sumHighest(results, keepHighest);
+  } else if (keepLowest) {
+    total = sumLowest(results, keepLowest);
   } else {
-    total = results.reduce((acc, i) => acc + i, 0);
+    total = sum(results);
   }
   if (modifier) {
     total += parseInt(modifier);
