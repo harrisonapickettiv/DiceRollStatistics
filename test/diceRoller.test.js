@@ -556,3 +556,63 @@ describe('Tests with roll("5d6l3+10t20")', () => {
     });
   });
 });
+
+describe('Tests with Fate dice', () => {
+  test('roll("dF") returns an object where the property "total" is a number between -1 and 1', () => {
+    const diceRolls = [];
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('dF'));
+    }
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(-1);
+      expect(roll.total).toBeLessThanOrEqual(1);
+    });
+  });
+
+  test('roll("1dF") returns an object where the property "total" is a number between -1 and 1', () => {
+    const diceRolls = [];
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('1dF'));
+    }
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(-1);
+      expect(roll.total).toBeLessThanOrEqual(1);
+    });
+  });
+
+  test('roll("4dF") returns an object where the property "total" is a number between -4 and 4', () => {
+    const diceRolls = [];
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4dF'));
+    }
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(-4);
+      expect(roll.total).toBeLessThanOrEqual(4);
+    });
+  });
+
+  test('roll("4dF+4") returns an object where the property "total" is a number between 0 and 8', () => {
+    const diceRolls = [];
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4dF+4'));
+    }
+    diceRolls.forEach((roll) => {
+      expect(roll.total).toBeGreaterThanOrEqual(0);
+      expect(roll.total).toBeLessThanOrEqual(8);
+    });
+  });
+
+  test('roll("4dF+4t6") returns an object where the property "success" is true when the property "total" is greater than or equal to 6 and false otherwise', () => {
+    const diceRolls = [];
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4dF+4t6'));
+    }
+    diceRolls.forEach(({ total, success }) => {
+      if (total >= 6) {
+        expect(success).toBeTruthy();
+      } else {
+        expect(success).toBeFalsy();
+      }
+    });
+  });
+});

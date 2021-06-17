@@ -7,7 +7,7 @@ const randInt = (
   return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
-const basicDiceRegexp = '(\\d+)?d(\\d+)';
+const basicDiceRegexp = '(\\d+)?d(\\d+|F)';
 const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
 const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
 const difficultyRegexp = '(?:d(\\d+)|m(\\d+))?';
@@ -28,6 +28,14 @@ const rollDice = (dice = 1, sides) => {
   const results = [];
   for (let i = 0; i < dice; i++) {
     results.push(randInt(1, sides));
+  }
+  return results;
+};
+
+const fateDice = (dice = 1) => {
+  const results = [];
+  for (let i = 0; i < dice; i++) {
+    results.push(randInt(-1, 1));
   }
   return results;
 };
@@ -56,7 +64,7 @@ const roll = (exp) => {
     negate,
   ] = exp.match(diceRegexp);
 
-  const results = rollDice(dice, sides);
+  const results = sides === 'F' ? fateDice(sides) : rollDice(dice, sides);
 
   let total;
   if (keepHighest) {
