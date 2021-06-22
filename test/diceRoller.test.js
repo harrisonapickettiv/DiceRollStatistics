@@ -557,45 +557,109 @@ describe('Tests with roll("5d6l3+10t20")', () => {
   });
 });
 
-describe('Tests with Fate dice', () => {
-  test('roll("dF") returns an object where the property "total" is a number between -1 and 1', () => {
-    const diceRolls = [];
+describe('Tests with roll("dF")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('dF'));
     }
+  });
+
+  test('roll("dF") returns an object where the property "results" has a length of 1', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(1);
+    });
+  });
+
+  test('roll("dF") returns an object where the property "total" is a number between -1 and 1', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(-1);
       expect(total).toBeLessThanOrEqual(1);
+    });
+  });
+});
+
+describe('Tests with roll("1dF")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('1dF'));
+    }
+  });
+
+  test('roll("1dF") returns an object where the property "results" has a length of 1', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(1);
     });
   });
 
   test('roll("1dF") returns an object where the property "total" is a number between -1 and 1', () => {
-    const diceRolls = [];
-    for (let i = 0; i < testCount; i++) {
-      diceRolls.push(roll('1dF'));
-    }
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(-1);
       expect(total).toBeLessThanOrEqual(1);
     });
   });
+});
 
-  test('roll("4dF") returns an object where the property "total" is a number between -4 and 4', () => {
-    const diceRolls = [];
+describe('Tests with roll("4dF")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('4dF'));
     }
+  });
+
+  test('roll("4dF") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("4dF") returns an object where the property "total" is a number between -4 and 4', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(-4);
       expect(total).toBeLessThanOrEqual(4);
     });
   });
+});
 
-  test('roll("4dF+4") returns an object where the property "total" is a number between 0 and 8', () => {
-    const diceRolls = [];
+describe('Tests with roll("4dF+4")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('4dF+4'));
     }
+  });
+
+  test('roll("4dF+4") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("4dF+4") returns an object where the property "total" is a number between 0 and 8', () => {
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(0);
+      expect(total).toBeLessThanOrEqual(8);
+    });
+  });
+});
+
+describe('Tests with roll("4dF+4t6")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('4dF+4t6'));
+    }
+  });
+
+  test('roll("4dF+4t6") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("4dF+4t6") returns an object where the property "total" is a number between 0 and 8', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(0);
       expect(total).toBeLessThanOrEqual(8);
@@ -603,10 +667,6 @@ describe('Tests with Fate dice', () => {
   });
 
   test('roll("4dF+4t6") returns an object where the property "success" is true when the property "total" is greater than or equal to 6 and false otherwise', () => {
-    const diceRolls = [];
-    for (let i = 0; i < testCount; i++) {
-      diceRolls.push(roll('4dF+4t6'));
-    }
     diceRolls.forEach(({ total, success }) => {
       if (total >= 6) {
         expect(success).toBeTruthy();
