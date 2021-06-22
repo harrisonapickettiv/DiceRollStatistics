@@ -25,23 +25,43 @@ describe('Tests with randInt', () => {
   });
 });
 
-describe('Tests with roll("d4") or roll("1d4")', () => {
-  test('roll("d4") returns an object where the property "total" is a number between 1 and 4', () => {
-    const diceRolls = [];
+describe('Tests with roll("d4")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('d4'));
     }
+  });
+
+  test('roll("d4") returns an object where the property "results" has a length of 1', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(1);
+    });
+  });
+
+  test('roll("d4") returns an object where the property "total" is a number between 1 and 4', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(1);
       expect(total).toBeLessThanOrEqual(4);
     });
   });
+});
 
-  test('roll("1d4") returns an object where the property "total" is a number between 1 and 4', () => {
-    const diceRolls = [];
+describe('Tests with roll("1d4")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('1d4'));
     }
+  });
+
+  test('roll("1d4") returns an object where the property "results" has a length of 1', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(1);
+    });
+  });
+
+  test('roll("1d4") returns an object where the property "total" is a number between 1 and 4', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(1);
       expect(total).toBeLessThanOrEqual(4);
