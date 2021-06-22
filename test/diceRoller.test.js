@@ -77,6 +77,12 @@ describe('Tests with roll("2d4")', () => {
     }
   });
 
+  test('roll("2d4") returns an object where the property "results" has a length of 2', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(2);
+    });
+  });
+
   test('roll("2d4") returns an object where the property "total" is a number between 2 and 8', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(2);
@@ -97,6 +103,12 @@ describe('Tests with roll("5d6+10")', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('5d6+10'));
     }
+  });
+
+  test('roll("5d6+10") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
   });
 
   test('roll("5d6+10") returns an object where the property "total" is a number between 15 and 40', () => {
@@ -121,6 +133,12 @@ describe('Tests with roll("5d6-10")', () => {
     }
   });
 
+  test('roll("5d6-10") returns an object where the property "results" has a length of 5', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(5);
+    });
+  });
+
   test('roll("5d6-10") returns an object where the property "total" is a number between -5 and 20', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(-5);
@@ -141,6 +159,12 @@ describe('Tests with roll("4d8*13")', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('4d8*13'));
     }
+  });
+
+  test('roll("4d8*13") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
   });
 
   test('roll("4d8*13") returns an object where the property "total" is a number between 52 and 416', () => {
