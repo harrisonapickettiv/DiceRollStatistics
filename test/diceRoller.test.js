@@ -31,9 +31,9 @@ describe('Tests with roll("d4") or roll("1d4")', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('d4'));
     }
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(1);
-      expect(roll.total).toBeLessThanOrEqual(4);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(1);
+      expect(total).toBeLessThanOrEqual(4);
     });
   });
 
@@ -42,9 +42,9 @@ describe('Tests with roll("d4") or roll("1d4")', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('1d4'));
     }
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(1);
-      expect(roll.total).toBeLessThanOrEqual(4);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(1);
+      expect(total).toBeLessThanOrEqual(4);
     });
   });
 });
@@ -58,9 +58,9 @@ describe('Tests with roll("2d4")', () => {
   });
 
   test('roll("2d4") returns an object where the property "total" is a number between 2 and 8', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(2);
-      expect(roll.total).toBeLessThanOrEqual(8);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(2);
+      expect(total).toBeLessThanOrEqual(8);
     });
   });
 
@@ -80,9 +80,9 @@ describe('Tests with roll("5d6+10")', () => {
   });
 
   test('roll("5d6+10") returns an object where the property "total" is a number between 15 and 40', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(15);
-      expect(roll.total).toBeLessThanOrEqual(40);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(15);
+      expect(total).toBeLessThanOrEqual(40);
     });
   });
 
@@ -102,9 +102,9 @@ describe('Tests with roll("5d6-10")', () => {
   });
 
   test('roll("5d6-10") returns an object where the property "total" is a number between -5 and 20', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(-5);
-      expect(roll.total).toBeLessThanOrEqual(20);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-5);
+      expect(total).toBeLessThanOrEqual(20);
     });
   });
 
@@ -124,9 +124,9 @@ describe('Tests with roll("4d8*13")', () => {
   });
 
   test('roll("4d8*13") returns an object where the property "total" is a number between 52 and 416', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(52);
-      expect(roll.total).toBeLessThanOrEqual(416);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(52);
+      expect(total).toBeLessThanOrEqual(416);
     });
   });
 
@@ -152,9 +152,9 @@ describe('Tests with roll("4d6h3")', () => {
   });
 
   test('roll("4d6h3") returns an object where the property "total" is a number between 3 and 18', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(3);
-      expect(roll.total).toBeLessThanOrEqual(18);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(3);
+      expect(total).toBeLessThanOrEqual(18);
     });
   });
 
@@ -183,9 +183,9 @@ describe('Tests with roll("5d6l3")', () => {
   });
 
   test('roll("5d6l3") returns an object where the property "total" is a number between 3 and 18', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(3);
-      expect(roll.total).toBeLessThanOrEqual(18);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(3);
+      expect(total).toBeLessThanOrEqual(18);
     });
   });
 
@@ -214,9 +214,9 @@ describe('Tests with roll("4d6h3+10")', () => {
   });
 
   test('roll("4d6h3+10") returns an object where the property "total" is a number between 13 and 28', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(13);
-      expect(roll.total).toBeLessThanOrEqual(28);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(13);
+      expect(total).toBeLessThanOrEqual(28);
     });
   });
 
@@ -245,9 +245,9 @@ describe('Tests with roll("4d6h3-10")', () => {
   });
 
   test('roll("4d6h3-10") returns an object where the property "total" is a number between -7 and 8', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(-7);
-      expect(roll.total).toBeLessThanOrEqual(8);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-7);
+      expect(total).toBeLessThanOrEqual(8);
     });
   });
 
@@ -276,9 +276,9 @@ describe('Tests with roll("5d6d3")', () => {
   });
 
   test('roll("5d6d3") returns an object where the property "total" is a number between 0 and 5', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(0);
-      expect(roll.total).toBeLessThanOrEqual(5);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(0);
+      expect(total).toBeLessThanOrEqual(5);
     });
   });
 
@@ -304,9 +304,9 @@ describe('Tests with roll("5d6m3")', () => {
   });
 
   test('roll("5d6m3") returns an object where the property "total" is a number between 0 and 5', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(0);
-      expect(roll.total).toBeLessThanOrEqual(5);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(0);
+      expect(total).toBeLessThanOrEqual(5);
     });
   });
 
@@ -332,9 +332,9 @@ describe('Tests with roll("5d6t20")', () => {
   });
 
   test('roll("5d6t20") returns an object where the property "total" is a number between 5 and 30', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(5);
-      expect(roll.total).toBeLessThanOrEqual(30);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(5);
+      expect(total).toBeLessThanOrEqual(30);
     });
   });
 
@@ -370,9 +370,9 @@ describe('Tests with roll("5d6n20")', () => {
   });
 
   test('roll("5d6n20") returns an object where the property "total" is a number between 5 and 30', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(5);
-      expect(roll.total).toBeLessThanOrEqual(30);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(5);
+      expect(total).toBeLessThanOrEqual(30);
     });
   });
 
@@ -408,9 +408,9 @@ describe('Tests with roll("5d6+10t20")', () => {
   });
 
   test('roll("5d6+10t20") returns an object where the property "total" is a number between 15 and 40', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(15);
-      expect(roll.total).toBeLessThanOrEqual(40);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(15);
+      expect(total).toBeLessThanOrEqual(40);
     });
   });
 
@@ -446,9 +446,9 @@ describe('Tests with roll("5d6+10n20")', () => {
   });
 
   test('roll("5d6+10n20") returns an object where the property "total" is a number between 15 and 40', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(15);
-      expect(roll.total).toBeLessThanOrEqual(40);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(15);
+      expect(total).toBeLessThanOrEqual(40);
     });
   });
 
@@ -484,9 +484,9 @@ describe('Tests with roll("5d6h3+10t20")', () => {
   });
 
   test('roll("5d6h3+10t20") returns an object where the property "total" is a number between 13 and 28', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(13);
-      expect(roll.total).toBeLessThanOrEqual(28);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(13);
+      expect(total).toBeLessThanOrEqual(28);
     });
   });
 
@@ -525,9 +525,9 @@ describe('Tests with roll("5d6l3+10t20")', () => {
   });
 
   test('roll("5d6l3+10t20") returns an object where the property "total" is a number between 13 and 28', () => {
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(13);
-      expect(roll.total).toBeLessThanOrEqual(28);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(13);
+      expect(total).toBeLessThanOrEqual(28);
     });
   });
 
@@ -563,9 +563,9 @@ describe('Tests with Fate dice', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('dF'));
     }
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(-1);
-      expect(roll.total).toBeLessThanOrEqual(1);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-1);
+      expect(total).toBeLessThanOrEqual(1);
     });
   });
 
@@ -574,9 +574,9 @@ describe('Tests with Fate dice', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('1dF'));
     }
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(-1);
-      expect(roll.total).toBeLessThanOrEqual(1);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-1);
+      expect(total).toBeLessThanOrEqual(1);
     });
   });
 
@@ -585,9 +585,9 @@ describe('Tests with Fate dice', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('4dF'));
     }
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(-4);
-      expect(roll.total).toBeLessThanOrEqual(4);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-4);
+      expect(total).toBeLessThanOrEqual(4);
     });
   });
 
@@ -596,9 +596,9 @@ describe('Tests with Fate dice', () => {
     for (let i = 0; i < testCount; i++) {
       diceRolls.push(roll('4dF+4'));
     }
-    diceRolls.forEach((roll) => {
-      expect(roll.total).toBeGreaterThanOrEqual(0);
-      expect(roll.total).toBeLessThanOrEqual(8);
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(0);
+      expect(total).toBeLessThanOrEqual(8);
     });
   });
 
