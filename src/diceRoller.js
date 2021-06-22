@@ -1,12 +1,3 @@
-const randInt = (
-  min = Number.MIN_SAFE_INTEGER,
-  max = Number.MAX_SAFE_INTEGER
-) => {
-  min = Math.ceil(min);
-  max = Math.floor(max);
-  return Math.floor(Math.random() * (max - min + 1)) + min;
-};
-
 const basicDiceRegexp = '(\\d+)?d(\\d+|F)';
 const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
 const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
@@ -16,12 +7,19 @@ const diceRegexp = new RegExp(
   `^${basicDiceRegexp}${keepRegexp}${difficultyRegexp}${modifierRegexp}${targetRegexp}$`
 );
 
-const sum = (list) => {
-  return list.reduce((acc, i) => acc + i, 0);
-};
+const sum = (list) => list.reduce((acc, i) => acc + i, 0);
+const sort = (list) => list.sort((a, b) => b - a);
+const sumHighest = (results, highest) => sum(sort(results).slice(0, highest));
+const sumLowest = (results, lowest) =>
+  sum(sort(results).slice(results.length - lowest, results.length));
 
-const sort = (list) => {
-  return list.sort((a, b) => b - a);
+const randInt = (
+  min = Number.MIN_SAFE_INTEGER,
+  max = Number.MAX_SAFE_INTEGER
+) => {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor(Math.random() * (max - min + 1)) + min;
 };
 
 const rollDice = (dice = 1, sides) => {
@@ -38,14 +36,6 @@ const fateDice = (dice = 1) => {
     results.push(randInt(-1, 1));
   }
   return results;
-};
-
-const sumHighest = (results, highest) => {
-  return sum(sort(results).slice(0, highest));
-};
-
-const sumLowest = (results, lowest) => {
-  return sum(sort(results).slice(results.length - lowest, results.length));
 };
 
 const roll = (exp) => {
