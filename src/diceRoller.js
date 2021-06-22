@@ -54,7 +54,7 @@ const roll = (exp) => {
     negate,
   ] = exp.match(diceRegexp);
 
-  const results = sides === 'F' ? fateDice(sides) : rollDice(dice, sides);
+  const results = sides === 'F' ? fateDice(dice) : rollDice(dice, sides);
 
   let total;
   if (keepHighest) {
