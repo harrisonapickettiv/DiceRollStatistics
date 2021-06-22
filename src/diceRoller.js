@@ -84,7 +84,7 @@ const roll = (exp) => {
     success = total <= parseInt(negate);
   }
 
-  return { results, total, success };
+  return target || negate ? { results, total, success } : { results, total };
 };
 
 export { randInt, roll };

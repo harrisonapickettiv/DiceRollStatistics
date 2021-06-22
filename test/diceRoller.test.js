@@ -45,6 +45,12 @@ describe('Tests with roll("d4")', () => {
       expect(total).toBeLessThanOrEqual(4);
     });
   });
+
+  test('roll("d4") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("1d4")', () => {
@@ -65,6 +71,12 @@ describe('Tests with roll("1d4")', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(1);
       expect(total).toBeLessThanOrEqual(4);
+    });
+  });
+
+  test('roll("1d4") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
     });
   });
 });
@@ -95,6 +107,12 @@ describe('Tests with roll("2d4")', () => {
       expect(results.reduce((acc, i) => acc + i, 0)).toBe(total);
     });
   });
+
+  test('roll("2d4") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("5d6+10")', () => {
@@ -123,6 +141,12 @@ describe('Tests with roll("5d6+10")', () => {
       expect(results.reduce((acc, i) => acc + i, 0) + 10).toBe(total);
     });
   });
+
+  test('roll("5d6+10") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("5d6-10")', () => {
@@ -149,6 +173,12 @@ describe('Tests with roll("5d6-10")', () => {
   test('roll("5d6-10") returns an object where "total" is equal to the sum of "results" minus 10', () => {
     diceRolls.forEach(({ total, results }) => {
       expect(results.reduce((acc, i) => acc + i, 0) - 10).toBe(total);
+    });
+  });
+
+  test('roll("5d6-10") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
     });
   });
 });
@@ -185,6 +215,12 @@ describe('Tests with roll("4d8*13")', () => {
       expect(results.reduce((acc, i) => acc + i, 0) * 13).toBe(total);
     });
   });
+
+  test('roll("4d8*13") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("4d6h3")', () => {
@@ -214,6 +250,12 @@ describe('Tests with roll("4d6h3")', () => {
         .sort((a, b) => b - a)
         .slice(0, results.length - 1);
       expect(highest.reduce((acc, i) => acc + i, 0)).toBe(total);
+    });
+  });
+
+  test('roll("4d6h3") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
     });
   });
 });
@@ -247,6 +289,12 @@ describe('Tests with roll("5d6l3")', () => {
       expect(lowest.reduce((acc, i) => acc + i, 0)).toBe(total);
     });
   });
+
+  test('roll("5d6l3") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("4d6h3+10")', () => {
@@ -276,6 +324,12 @@ describe('Tests with roll("4d6h3+10")', () => {
         .sort((a, b) => b - a)
         .slice(0, results.length - 1);
       expect(highest.reduce((acc, i) => acc + i, 0) + 10).toBe(total);
+    });
+  });
+
+  test('roll("4d6h3+10") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
     });
   });
 });
@@ -309,6 +363,12 @@ describe('Tests with roll("4d6h3-10")', () => {
       expect(highest.reduce((acc, i) => acc + i, 0) - 10).toBe(total);
     });
   });
+
+  test('roll("4d6h3-10") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("5d6d3")', () => {
@@ -335,6 +395,12 @@ describe('Tests with roll("5d6d3")', () => {
   test('roll("5d6d3") returns an object where the property "total" is equal to the number of results greater than or equal to 3', () => {
     diceRolls.forEach(({ total, results }) => {
       expect(results.filter((r) => r >= 3).length).toBe(total);
+    });
+  });
+
+  test('roll("5d6d3") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
     });
   });
 });
@@ -365,6 +431,12 @@ describe('Tests with roll("5d6m3")', () => {
       expect(results.filter((r) => r <= 3).length).toBe(total);
     });
   });
+
+  test('roll("5d6m3") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("5d6t20")', () => {
@@ -391,6 +463,12 @@ describe('Tests with roll("5d6t20")', () => {
   test('roll("5d6t20") returns an object where "total" is equal to the sum of "results"', () => {
     diceRolls.forEach(({ total, results }) => {
       expect(results.reduce((acc, i) => acc + i, 0)).toBe(total);
+    });
+  });
+
+  test('roll("5d6t20") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
     });
   });
 
@@ -432,6 +510,12 @@ describe('Tests with roll("5d6n20")', () => {
     });
   });
 
+  test('roll("5d6n20") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
+    });
+  });
+
   test('roll("5d6n20") returns an object where the property "success" is true when the property "total" is less than or equal to 20 and false otherwise', () => {
     diceRolls.forEach(({ total, success }) => {
       if (total <= 20) {
@@ -470,6 +554,12 @@ describe('Tests with roll("5d6+10t20")', () => {
     });
   });
 
+  test('roll("5d6+10t20") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
+    });
+  });
+
   test('roll("5d6+10t20") returns an object where the property "success" is true when the property "total" is greater than or equal to 20 and false otherwise', () => {
     diceRolls.forEach(({ total, success }) => {
       if (total >= 20) {
@@ -505,6 +595,12 @@ describe('Tests with roll("5d6+10n20")', () => {
   test('roll("5d6+10n20") returns an object where "total" is equal to the sum of "results" plus 10', () => {
     diceRolls.forEach(({ total, results }) => {
       expect(results.reduce((acc, i) => acc + i, 0) + 10).toBe(total);
+    });
+  });
+
+  test('roll("5d6+10n20") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
     });
   });
 
@@ -549,6 +645,12 @@ describe('Tests with roll("5d6h3+10t20")', () => {
     });
   });
 
+  test('roll("5d6h3+10t20") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
+    });
+  });
+
   test('roll("5d6h3+10t20") returns an object where the property "success" is true when the property "total" is greater than or equal to 20 and false otherwise', () => {
     diceRolls.forEach(({ total, success }) => {
       if (total >= 20) {
@@ -590,6 +692,12 @@ describe('Tests with roll("5d6l3+10t20")', () => {
     });
   });
 
+  test('roll("5d6l3+10t20") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
+    });
+  });
+
   test('roll("5d6l3+10t20") returns an object where the property "success" is true when the property "total" is greater than or equal to 20 and false otherwise', () => {
     diceRolls.forEach(({ total, success }) => {
       if (total >= 20) {
@@ -621,6 +729,12 @@ describe('Tests with roll("dF")', () => {
       expect(total).toBeLessThanOrEqual(1);
     });
   });
+
+  test('roll("dF") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("1dF")', () => {
@@ -641,6 +755,12 @@ describe('Tests with roll("1dF")', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(-1);
       expect(total).toBeLessThanOrEqual(1);
+    });
+  });
+
+  test('roll("1dF") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
     });
   });
 });
@@ -665,6 +785,12 @@ describe('Tests with roll("4dF")', () => {
       expect(total).toBeLessThanOrEqual(4);
     });
   });
+
+  test('roll("4dF") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("4dF+4")', () => {
@@ -687,6 +813,12 @@ describe('Tests with roll("4dF+4")', () => {
       expect(total).toBeLessThanOrEqual(8);
     });
   });
+
+  test('roll("4dF+4") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
 });
 
 describe('Tests with roll("4dF+4t6")', () => {
@@ -707,6 +839,12 @@ describe('Tests with roll("4dF+4t6")', () => {
     diceRolls.forEach(({ total }) => {
       expect(total).toBeGreaterThanOrEqual(0);
       expect(total).toBeLessThanOrEqual(8);
+    });
+  });
+
+  test('roll("4dF+4t6") returns an object with the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).toHaveProperty('success');
     });
   });
 
