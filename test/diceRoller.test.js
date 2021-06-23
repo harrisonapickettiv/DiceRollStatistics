@@ -1,4 +1,4 @@
-import { randInt, roll } from '../src/diceRoller';
+import { randInt, roll } from '../src/js/diceRoller';
 
 const testCount = 1000;
 

@@ -1,0 +1,62 @@
+body {
+  background: #ccc;
+  color: white;
+}
+
+footer {
+  border-top: #008ed6 3px solid;
+  opacity: 0.8;
+}
+
+footer #copyright p {
+  margin: 0;
+}
+
+a {
+  color: white;
+}
+
+.navbar {
+  border-bottom: #008ed6 3px solid;
+  opacity: 0.8;
+}
+
+#roll-section {
+  background: url('../img/home.jpg');
+  background-repeat: no-repeat;
+  background-size: cover;
+  background-attachment: fixed;
+  min-height: 100vh;
+  opacity: 0.5;
+}
+
+#roll-section .dark-overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  min-height: 100vh;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+#roll-section .roll-inner {
+  padding-top: 150px;
+}
+
+#roll-section .card-form {
+  opacity: 0.8;
+}
+
+#roll-section .fas {
+  color: #008ed6;
+  background-color: #fff;
+  padding: 5px;
+  border-radius: 5px;
+}
+
+#notation-section .fas {
+  color: #fff;
+  background-color: #333;
+  padding: 5px;
+  border-radius: 5px;
+}
