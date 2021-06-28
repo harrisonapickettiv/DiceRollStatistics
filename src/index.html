@@ -57,8 +57,54 @@
       <div class="dark-overlay">
         <div class="roll-inner container">
           <div class="row">
-            <div class="col-lg-8 d-none d-lg-block"></div>
-            <div class="col-lg-4 d-none d-lg-block"></div>
+            <div class="col-lg-8 d-none d-lg-block">
+              <canvas id="diceRollChart" width="400" height="400"></canvas>
+            </div>
+            <div class="col-lg-4 d-none d-lg-block">
+              <div class="card bg-primary text-center card-form">
+                <div class="card-body">
+                  <h3>Roll The Dice</h3>
+                  <form>
+                    <div class="form-group">
+                      <input
+                        type="text"
+                        class="form-control form-control-lg"
+                        placeholder="Try '4d6h3'"
+                      />
+                    </div>
+                    <div class="text-left">
+                      <a
+                        class="options-toggle"
+                        data-toggle="collapse"
+                        href="#diceRollOptions"
+                        role="button"
+                        >options</a
+                      >
+                    </div>
+                    <div class="collapse multi-collapse" id="diceRollOptions">
+                      <div class="input-group">
+                        <div class="input-group-prepend">
+                          <span class="input-group-text"
+                            >Number of Dice Rolls</span
+                          >
+                        </div>
+                        <input
+                          type="text"
+                          class="form-control form-control-lg"
+                          value="10000"
+                        />
+                      </div>
+                    </div>
+                    <div
+                      id="roll-button"
+                      class="btn btn-outline-light btn-block"
+                    >
+                      Add To Chart
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -230,6 +276,13 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.6.0/js/bootstrap.bundle.min.js"
     integrity="sha512-wV7Yj1alIZDqZFCUQJy85VN+qvEIly93fIQAN7iqDFCPEucLCeNFz4r35FCo9s6WrpdDQPi80xbljXB8Bjtvcg=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.4.0/chart.min.js"
+    integrity="sha512-JxJpoAvmomz0MbIgw9mx+zZJLEvC6hIgQ6NcpFhVmbK1Uh5WynnRTTSGv3BTZMNBpPbocmdSJfldgV5lVnPtIw=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>

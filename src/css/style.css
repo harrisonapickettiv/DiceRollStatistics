@@ -47,11 +47,19 @@ a {
   opacity: 0.8;
 }
 
+#roll-section .options-toggle {
+  font-size: 0.7rem;
+}
+
 #roll-section .fas {
   color: #008ed6;
   background-color: #fff;
   padding: 5px;
   border-radius: 5px;
+}
+
+#diceRollChart {
+  background-color: rgba(255, 255, 255, 0.5);
 }
 
 #notation-section .fas {
