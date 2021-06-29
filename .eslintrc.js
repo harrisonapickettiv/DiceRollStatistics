@@ -15,6 +15,7 @@ module.exports = {
     jest: true,
   },
   rules: {
+    'no-bitwise': ['error', { int32Hint: true }],
     'no-plusplus': [2, { allowForLoopAfterthoughts: true }],
     'no-debugger': 0,
     'no-alert': 0,
