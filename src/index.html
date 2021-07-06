@@ -73,14 +73,25 @@
                         placeholder="Try '4d6h3'"
                       />
                     </div>
-                    <div class="text-left">
-                      <a
-                        class="options-toggle"
-                        data-toggle="collapse"
-                        href="#diceRollOptions"
-                        role="button"
-                        >options</a
-                      >
+                    <div class="row">
+                      <div class="col-lg-4 text-left">
+                        <a
+                          class="options-toggle"
+                          data-toggle="collapse"
+                          href="#diceRollOptions"
+                          role="button"
+                          >options</a
+                        >
+                      </div>
+                      <div class="col-lg-5 offset-lg-3 text-right">
+                        <a
+                          class="options-toggle"
+                          data-toggle="collapse"
+                          href="#chartDataOptions"
+                          role="button"
+                          >chart & data</a
+                        >
+                      </div>
                     </div>
                     <div class="collapse multi-collapse" id="diceRollOptions">
                       <div class="input-group">
@@ -104,6 +115,15 @@
                           class="form-control form-control-lg"
                           value="#000001"
                         />
+                      </div>
+                    </div>
+                    <div class="collapse multi-collapse" id="chartDataOptions">
+                      <hr />
+                      <div
+                        id="reset-button"
+                        class="btn btn-danger btn-outline-light btn-block mb-3"
+                      >
+                        Reset Chart
                       </div>
                     </div>
                     <div

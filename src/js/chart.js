@@ -37,4 +37,9 @@ const updateChart = () => {
   diceChart.update();
 };
 
-export { updateChart };
+const resetChart = () => {
+  diceChart.data = {};
+  diceChart.update();
+};
+
+export { updateChart, resetChart };

@@ -1,6 +1,7 @@
-import { updateChart } from './chart';
+import { updateChart, resetChart } from './chart';
 
 $('#roll-button').click(updateChart);
+$('#reset-button').click(resetChart);
 $('#year').text(new Date().getFullYear());
 $('body').scrollspy({ target: '#main-nav' });
 $('#main-nav a').on('click', (event) => {
