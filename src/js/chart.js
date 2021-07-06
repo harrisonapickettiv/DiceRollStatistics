@@ -1,6 +1,6 @@
 import { updateChartData } from './histogram';
 
-const { Chart } = window;
+const { Chart, randomColor } = window;
 Chart.defaults.color = '#000000';
 Chart.defaults.borderColor = '#000000';
 
@@ -17,11 +17,23 @@ const diceChart = new Chart(ctx, {
   },
 });
 
+const selectColor = () => {
+  const colorForm = document.getElementById('color');
+  const color = colorForm.value === '#000001' ? randomColor() : colorForm.value;
+  colorForm.value = '#000001';
+  return color;
+};
+
 const updateChart = () => {
   const trials = parseInt(document.getElementById('trials').value);
   const rollExpr = document.getElementById('rollExpression').value || '4d6h3';
 
-  diceChart.data = updateChartData(rollExpr, trials, diceChart.data);
+  diceChart.data = updateChartData(
+    rollExpr,
+    trials,
+    selectColor(),
+    diceChart.data
+  );
   diceChart.update();
 };
 

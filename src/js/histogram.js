@@ -47,7 +47,7 @@ const getChartData = (labels, rollData) => {
   return data;
 };
 
-const updateChartData = (rollExpr, trials, chartData) => {
+const updateChartData = (rollExpr, trials, color, chartData) => {
   const rawData = getRawData(rollExpr, trials);
   const tabData = tabulateData(rawData);
   const rollData = calcPercent(tabData, trials);
@@ -56,7 +56,7 @@ const updateChartData = (rollExpr, trials, chartData) => {
   chartData.datasets.push({
     label: rollExpr,
     data: getChartData(chartData.labels, rollData),
-    backgroundColor: '#00ff00',
+    backgroundColor: color,
     borderColor: '#000000',
     borderWidth: 1,
   });

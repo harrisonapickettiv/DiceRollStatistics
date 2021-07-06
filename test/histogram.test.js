@@ -158,6 +158,7 @@ describe('updateChartData', () => {
     chartData = updateChartData(
       '1d12',
       10000,
+      '#000001',
       JSON.parse(JSON.stringify(exampleData)) // deep copy of exampleData
     );
   });
