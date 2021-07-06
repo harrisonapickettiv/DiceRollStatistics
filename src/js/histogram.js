@@ -47,6 +47,15 @@ const getChartData = (labels, rollData) => {
   return data;
 };
 
+const updateDatasets = (datasets, labels) => {
+  const newDatasets = [];
+  for (const ds of datasets) {
+    ds.data = getChartData(labels, ds.rollData);
+    newDatasets.push(ds);
+  }
+  return newDatasets;
+};
+
 const updateChartData = (rollExpr, trials, color, chartData) => {
   const rawData = getRawData(rollExpr, trials);
   const tabData = tabulateData(rawData);
@@ -55,11 +64,13 @@ const updateChartData = (rollExpr, trials, color, chartData) => {
   chartData.labels = updateLabels(chartData.labels, rollData);
   chartData.datasets.push({
     label: rollExpr,
-    data: getChartData(chartData.labels, rollData),
+    data: [],
     backgroundColor: color,
     borderColor: '#000000',
     borderWidth: 1,
+    rollData,
   });
+  chartData.datasets = updateDatasets(chartData.datasets, chartData.labels);
 
   return chartData;
 };
@@ -71,4 +82,5 @@ export {
   calcPercent,
   updateLabels,
   getChartData,
+  updateDatasets,
 };

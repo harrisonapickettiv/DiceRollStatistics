@@ -5,6 +5,7 @@ import {
   calcPercent,
   updateLabels,
   getChartData,
+  updateDatasets,
 } from '../src/js/histogram';
 
 const exampleData = {
@@ -16,9 +17,15 @@ const exampleData = {
       backgroundColor: '#00ff00',
       borderColor: '#000000',
       borderWidth: 1,
+      rollData: { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 },
     },
   ],
 };
+
+const getExampleData = () =>
+  JSON.parse(
+    JSON.stringify(exampleData) // deep copy of exampleData
+  );
 
 describe('getRawData', () => {
   let rawData;
@@ -152,15 +159,79 @@ describe('getChartData', () => {
   });
 });
 
+describe('updateDatasets', () => {
+  const d = getExampleData();
+  d.labels = ['-4', '-3', '-2', '-1', '0', '1', '2', '3', '4', '5', '6'];
+  d.datasets.push({
+    label: 'New Data',
+    data: [-4, -3, -2, -1, 0, 1, 2, 3, 4],
+    backgroundColor: '#ff0000',
+    borderColor: '#000000',
+    borderWidth: 1,
+    rollData: {
+      '-4': -4,
+      '-3': -3,
+      '-2': -2,
+      '-1': -1,
+      0: 0,
+      1: 1,
+      2: 2,
+      3: 3,
+      4: 4,
+    },
+  });
+  let newDatasets;
+  beforeAll(() => {
+    newDatasets = updateDatasets(d.datasets, d.labels);
+  });
+
+  test('updateDatasets returns a list of datasets', () => {
+    expect(Array.isArray(newDatasets)).toBeTruthy();
+    for (const dataset of newDatasets) {
+      expect(typeof dataset).toBe('object');
+      expect(dataset).not.toBeNull();
+
+      expect(dataset).toHaveProperty('label');
+      expect(typeof dataset.label).toBe('string');
+
+      expect(dataset).toHaveProperty('data');
+      expect(Array.isArray(dataset.data)).toBeTruthy();
+
+      expect(dataset).toHaveProperty('backgroundColor');
+      expect(typeof dataset.backgroundColor).toBe('string');
+
+      expect(dataset).toHaveProperty('borderColor');
+      expect(typeof dataset.borderColor).toBe('string');
+
+      expect(dataset).toHaveProperty('borderWidth');
+      expect(typeof dataset.borderWidth).toBe('number');
+
+      expect(dataset).toHaveProperty('rollData');
+      expect(typeof dataset.rollData).toBe('object');
+      expect(dataset).not.toBeNull();
+    }
+  });
+
+  test('updateDatasets returns a list of datasets each containing an array called data with length equal to labels.length', () => {
+    for (const dataset of newDatasets) {
+      expect(dataset.data.length).toBe(d.labels.length);
+    }
+  });
+
+  test('updateDatasets returns a list of datasets each containing an array called data with values sorted by key in labels', () => {
+    for (const dataset of newDatasets) {
+      for (let i = 0; i < d.labels; i++) {
+        const test = dataset.rollData[d.labels[i]] || 0;
+        expect(dataset.data[i]).toBe(test);
+      }
+    }
+  });
+});
+
 describe('updateChartData', () => {
   let chartData;
   beforeAll(() => {
-    chartData = updateChartData(
-      '1d12',
-      10000,
-      '#000001',
-      JSON.parse(JSON.stringify(exampleData)) // deep copy of exampleData
-    );
+    chartData = updateChartData('1d12', 10000, '#000001', getExampleData());
   });
 
   test('updateChartData returns a chartJS data object', () => {
@@ -188,6 +259,10 @@ describe('updateChartData', () => {
 
       expect(data).toHaveProperty('borderWidth');
       expect(typeof data.borderWidth).toBe('number');
+
+      expect(data).toHaveProperty('rollData');
+      expect(typeof data.rollData).toBe('object');
+      expect(data).not.toBeNull();
     }
   });
 
