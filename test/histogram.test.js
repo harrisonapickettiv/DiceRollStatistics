@@ -18,6 +18,7 @@ const exampleData = {
       borderColor: '#000000',
       borderWidth: 1,
       rollData: { 1: 1, 2: 2, 3: 3, 4: 4, 5: 5, 6: 6 },
+      datasetID: 'ckqtna1n60000316bkdlo',
     },
   ],
 };
@@ -179,6 +180,7 @@ describe('updateDatasets', () => {
       3: 3,
       4: 4,
     },
+    datasetID: 'ckqtna21c0002316bcx48',
   });
   let newDatasets;
   beforeAll(() => {
@@ -209,6 +211,9 @@ describe('updateDatasets', () => {
       expect(dataset).toHaveProperty('rollData');
       expect(typeof dataset.rollData).toBe('object');
       expect(dataset).not.toBeNull();
+
+      expect(dataset).toHaveProperty('datasetID');
+      expect(typeof dataset.datasetID).toBe('string');
     }
   });
 
@@ -231,7 +236,13 @@ describe('updateDatasets', () => {
 describe('updateChartData', () => {
   let chartData;
   beforeAll(() => {
-    chartData = updateChartData('1d12', 10000, '#000001', getExampleData());
+    chartData = updateChartData(
+      '1d12',
+      10000,
+      '#000001',
+      getExampleData(),
+      'ckqtna1so0001316b21rh'
+    );
   });
 
   test('updateChartData returns a chartJS data object', () => {
@@ -263,6 +274,9 @@ describe('updateChartData', () => {
       expect(data).toHaveProperty('rollData');
       expect(typeof data.rollData).toBe('object');
       expect(data).not.toBeNull();
+
+      expect(data).toHaveProperty('datasetID');
+      expect(typeof data.datasetID).toBe('string');
     }
   });
 
