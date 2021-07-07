@@ -9,6 +9,45 @@ import {
   removeDataset,
 } from '../src/js/histogram';
 
+const testDatasetObjects = (datasets) => {
+  expect(Array.isArray(datasets)).toBeTruthy();
+
+  for (const data of datasets) {
+    expect(typeof data).toBe('object');
+    expect(data).not.toBeNull();
+
+    expect(data).toHaveProperty('label');
+    expect(typeof data.label).toBe('string');
+
+    expect(data).toHaveProperty('data');
+    expect(Array.isArray(data.data)).toBeTruthy();
+
+    expect(data).toHaveProperty('backgroundColor');
+    expect(typeof data.backgroundColor).toBe('string');
+
+    expect(data).toHaveProperty('borderColor');
+    expect(typeof data.borderColor).toBe('string');
+
+    expect(data).toHaveProperty('borderWidth');
+    expect(typeof data.borderWidth).toBe('number');
+
+    expect(data).toHaveProperty('rollData');
+    expect(typeof data.rollData).toBe('object');
+    expect(data).not.toBeNull();
+
+    expect(data).toHaveProperty('datasetID');
+    expect(typeof data.datasetID).toBe('string');
+  }
+};
+
+const testChartJSObject = (chartData) => {
+  expect(chartData).toHaveProperty('labels');
+  expect(Array.isArray(chartData.labels)).toBeTruthy();
+
+  expect(chartData).toHaveProperty('datasets');
+  testDatasetObjects(chartData.datasets);
+};
+
 const exampleData = {
   labels: ['1', '2', '3', '4', '5', '6'],
   datasets: [
@@ -189,33 +228,7 @@ describe('updateDatasets', () => {
   });
 
   test('updateDatasets returns a list of datasets', () => {
-    expect(Array.isArray(newDatasets)).toBeTruthy();
-    for (const dataset of newDatasets) {
-      expect(typeof dataset).toBe('object');
-      expect(dataset).not.toBeNull();
-
-      expect(dataset).toHaveProperty('label');
-      expect(typeof dataset.label).toBe('string');
-
-      expect(dataset).toHaveProperty('data');
-      expect(Array.isArray(dataset.data)).toBeTruthy();
-
-      expect(dataset).toHaveProperty('backgroundColor');
-      expect(typeof dataset.backgroundColor).toBe('string');
-
-      expect(dataset).toHaveProperty('borderColor');
-      expect(typeof dataset.borderColor).toBe('string');
-
-      expect(dataset).toHaveProperty('borderWidth');
-      expect(typeof dataset.borderWidth).toBe('number');
-
-      expect(dataset).toHaveProperty('rollData');
-      expect(typeof dataset.rollData).toBe('object');
-      expect(dataset).not.toBeNull();
-
-      expect(dataset).toHaveProperty('datasetID');
-      expect(typeof dataset.datasetID).toBe('string');
-    }
+    testDatasetObjects(newDatasets);
   });
 
   test('updateDatasets returns a list of datasets each containing an array called data with length equal to labels.length', () => {
@@ -254,38 +267,7 @@ describe('removeDataset', () => {
   });
 
   test('removeDataset returns a chartJS data object', () => {
-    expect(chartData).toHaveProperty('labels');
-    expect(Array.isArray(chartData.labels)).toBeTruthy();
-
-    expect(chartData).toHaveProperty('datasets');
-    expect(Array.isArray(chartData.datasets)).toBeTruthy();
-
-    for (const data of chartData.datasets) {
-      expect(typeof data).toBe('object');
-      expect(data).not.toBeNull();
-
-      expect(data).toHaveProperty('label');
-      expect(typeof data.label).toBe('string');
-
-      expect(data).toHaveProperty('data');
-      expect(Array.isArray(data.data)).toBeTruthy();
-
-      expect(data).toHaveProperty('backgroundColor');
-      expect(typeof data.backgroundColor).toBe('string');
-
-      expect(data).toHaveProperty('borderColor');
-      expect(typeof data.borderColor).toBe('string');
-
-      expect(data).toHaveProperty('borderWidth');
-      expect(typeof data.borderWidth).toBe('number');
-
-      expect(data).toHaveProperty('rollData');
-      expect(typeof data.rollData).toBe('object');
-      expect(data).not.toBeNull();
-
-      expect(data).toHaveProperty('datasetID');
-      expect(typeof data.datasetID).toBe('string');
-    }
+    testChartJSObject(chartData);
   });
 
   test('removeDataset returns a chartJS data object with one fewer dataset', () => {
@@ -315,38 +297,7 @@ describe('updateChartData', () => {
   });
 
   test('updateChartData returns a chartJS data object', () => {
-    expect(chartData).toHaveProperty('labels');
-    expect(Array.isArray(chartData.labels)).toBeTruthy();
-
-    expect(chartData).toHaveProperty('datasets');
-    expect(Array.isArray(chartData.datasets)).toBeTruthy();
-
-    for (const data of chartData.datasets) {
-      expect(typeof data).toBe('object');
-      expect(data).not.toBeNull();
-
-      expect(data).toHaveProperty('label');
-      expect(typeof data.label).toBe('string');
-
-      expect(data).toHaveProperty('data');
-      expect(Array.isArray(data.data)).toBeTruthy();
-
-      expect(data).toHaveProperty('backgroundColor');
-      expect(typeof data.backgroundColor).toBe('string');
-
-      expect(data).toHaveProperty('borderColor');
-      expect(typeof data.borderColor).toBe('string');
-
-      expect(data).toHaveProperty('borderWidth');
-      expect(typeof data.borderWidth).toBe('number');
-
-      expect(data).toHaveProperty('rollData');
-      expect(typeof data.rollData).toBe('object');
-      expect(data).not.toBeNull();
-
-      expect(data).toHaveProperty('datasetID');
-      expect(typeof data.datasetID).toBe('string');
-    }
+    testChartJSObject(chartData);
   });
 
   test('updateChartData returns a chartJS data object with one additional dataset', () => {
