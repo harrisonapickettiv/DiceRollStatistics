@@ -68,3 +68,7 @@ a {
   padding: 5px;
   border-radius: 5px;
 }
+
+#chartData a {
+  color: #000;
+}

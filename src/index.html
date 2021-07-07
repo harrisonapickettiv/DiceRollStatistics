@@ -93,7 +93,16 @@
                         >
                       </div>
                     </div>
-                    <div class="collapse multi-collapse" id="diceRollOptions">
+                    <div
+                      id="roll-button"
+                      class="btn btn-outline-light btn-block mb-3"
+                    >
+                      Add To Chart
+                    </div>
+                    <div
+                      class="collapse multi-collapse mb-3"
+                      id="diceRollOptions"
+                    >
                       <div class="input-group">
                         <div class="input-group-prepend">
                           <span class="input-group-text">Trials</span>
@@ -118,19 +127,14 @@
                       </div>
                     </div>
                     <div class="collapse multi-collapse" id="chartDataOptions">
-                      <hr />
                       <div
                         id="reset-button"
                         class="btn btn-danger btn-outline-light btn-block mb-3"
                       >
                         Reset Chart
                       </div>
-                    </div>
-                    <div
-                      id="roll-button"
-                      class="btn btn-outline-light btn-block"
-                    >
-                      Add To Chart
+                      <hr />
+                      <div id="chartData" class="row mx-1"></div>
                     </div>
                   </form>
                 </div>
@@ -321,6 +325,13 @@
   <script
     src="https://cdnjs.cloudflare.com/ajax/libs/randomcolor/0.6.1/randomColor.min.js"
     integrity="sha512-vPeZ7JCboHcfpqSx5ZD+/jpEhS4JpXxfz9orSvAPPj0EKUVShU2tgy7XkU+oujBJKnWmu4hU7r9MMQNWPfXsYw=="
+    crossorigin="anonymous"
+    referrerpolicy="no-referrer"
+  ></script>
+
+  <script
+    src="https://cdnjs.cloudflare.com/ajax/libs/cuid/1.1.0/browser-cuid.min.js"
+    integrity="sha512-N+OrNnOa/frTq5OTi6rWhzKbR0K0jZ6FXWYbnwGXKAyR1ZbaLMnvYvYMNSGuROdPvDS6TFEwtR/ykwrdCEjR6A=="
     crossorigin="anonymous"
     referrerpolicy="no-referrer"
   ></script>
