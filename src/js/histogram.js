@@ -31,10 +31,12 @@ const calcPercent = (tabData, trials) => {
   return rollData;
 };
 
-const updateLabels = (labels, rollData) => {
-  const chartLabels = new Set(labels);
-  for (const label of Object.keys(rollData)) {
-    chartLabels.add(label);
+const updateLabels = (datasets) => {
+  const chartLabels = new Set();
+  for (const dataset of datasets) {
+    for (const label of Object.keys(dataset.rollData)) {
+      chartLabels.add(label);
+    }
   }
   return [...chartLabels].sort((a, b) => a - b);
 };
@@ -58,6 +60,8 @@ const updateDatasets = (datasets, labels) => {
 
 const removeDataset = (chartData, id) => {
   chartData.datasets = chartData.datasets.filter((d) => d.datasetID !== id);
+  chartData.labels = updateLabels(chartData.datasets);
+  chartData.datasets = updateDatasets(chartData.datasets, chartData.labels);
   return chartData;
 };
 
@@ -66,7 +70,6 @@ const updateChartData = (rollExpr, trials, color, chartData, datasetID) => {
   const tabData = tabulateData(rawData);
   const rollData = calcPercent(tabData, trials);
 
-  chartData.labels = updateLabels(chartData.labels, rollData);
   chartData.datasets.push({
     label: rollExpr,
     data: [],
@@ -76,6 +79,7 @@ const updateChartData = (rollExpr, trials, color, chartData, datasetID) => {
     rollData,
     datasetID,
   });
+  chartData.labels = updateLabels(chartData.datasets);
   chartData.datasets = updateDatasets(chartData.datasets, chartData.labels);
 
   return chartData;

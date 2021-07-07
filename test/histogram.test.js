@@ -147,11 +147,36 @@ describe('calcPercent', () => {
 });
 
 describe('updateLabels', () => {
-  const labels = ['2', '4', '6', '8', '10'];
-  const chartData = { 1: 0, 3: 0, 5: 0, 7: 0, 9: 0 };
+  let testData = { labels: [], datasets: [] };
+  testData = updateChartData('2d12', 100, '#000001', testData, `test2d12`);
+  testData = updateChartData('3d6', 100, '#000001', testData, `test3d6`);
+  testData = updateChartData('4d6h3', 100, '#000001', testData, `test4d6h3`);
+  testData = updateChartData('4d6l3', 100, '#000001', testData, `test4d6l3`);
+
   let updLabels;
   beforeAll(() => {
-    updLabels = updateLabels(labels, chartData);
+    testData.datasets.push({
+      label: '4dF',
+      data: [
+        0.0126, 0.0444, 0.1216, 0.1964, 0.238, 0.2016, 0.1217, 0.0497, 0.014,
+      ],
+      backgroundColor: '#ed5ced',
+      borderColor: '#000000',
+      borderWidth: 1,
+      rollData: {
+        0: 0.238,
+        1: 0.2016,
+        2: 0.1217,
+        3: 0.0497,
+        4: 0.014,
+        '-4': 0.0126,
+        '-3': 0.0444,
+        '-2': 0.1216,
+        '-1': 0.1964,
+      },
+      datasetID: 'ckqtrj4520000316b7tg7',
+    });
+    updLabels = updateLabels(testData.datasets);
   });
 
   test('updateLabels returns an array', () => {
@@ -164,14 +189,16 @@ describe('updateLabels', () => {
     ).toBeTruthy();
   });
 
-  test("updateLabels returns an array that contains a set of all label items found in it's inputs", () => {
-    const labelsSet = new Set(labels);
-    for (const label of Object.keys(chartData)) {
-      labelsSet.add(label);
+  test('updateLabels returns an array that contains a set of all label items in datasets', () => {
+    const testLabels = new Set();
+    for (const dataset of testData.datasets) {
+      for (const label of Object.keys(dataset.rollData)) {
+        testLabels.add(label);
+      }
     }
-    const merged = [...labelsSet];
-    expect(updLabels.length).toBe(merged.length);
-    expect(updLabels).toEqual(expect.arrayContaining(merged));
+    const t = [...testLabels];
+    expect(updLabels.length).toBe(t.length);
+    expect(updLabels).toEqual(expect.arrayContaining(t));
   });
 });
 
