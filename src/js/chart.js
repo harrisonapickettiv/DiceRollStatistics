@@ -42,7 +42,9 @@ const createDataRemoveBtn = (datasetID, color, rollExpr) => {
   chartData.append(div);
 };
 
-const updateChart = () => {
+const updateChart = (e) => {
+  e.preventDefault();
+
   const trials = parseInt(document.getElementById('trials').value);
   const rollExpr = document.getElementById('rollExpression').value || '4d6h3';
   const datasetID = cuid();
