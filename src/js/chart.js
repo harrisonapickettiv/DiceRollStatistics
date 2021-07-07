@@ -42,11 +42,24 @@ const createDataRemoveBtn = (datasetID, color, rollExpr) => {
   chartData.append(div);
 };
 
+const pruneOldData = (data, maxDatasets) => {
+  if (data.datasets.length <= maxDatasets) return data;
+
+  let newData;
+  while (data.datasets.length > maxDatasets) {
+    const id = data.datasets[0].datasetID;
+    document.getElementById(id).remove();
+    newData = removeDataset(data, id);
+  }
+  return newData;
+};
+
 const updateChart = (e) => {
   e.preventDefault();
 
-  const trials = parseInt(document.getElementById('trials').value);
+  const trials = document.getElementById('trials').value || 10000;
   const rollExpr = document.getElementById('rollExpression').value || '4d6h3';
+  const maxDatasets = document.getElementById('maxDatasets').value || 5;
   const datasetID = cuid();
   const color = selectColor();
 
@@ -58,6 +71,7 @@ const updateChart = (e) => {
     diceChart.data,
     datasetID
   );
+  diceChart.data = pruneOldData(diceChart.data, maxDatasets);
   diceChart.update();
 };
 
