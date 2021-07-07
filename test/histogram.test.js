@@ -6,6 +6,7 @@ import {
   updateLabels,
   getChartData,
   updateDatasets,
+  removeDataset,
 } from '../src/js/histogram';
 
 const exampleData = {
@@ -230,6 +231,74 @@ describe('updateDatasets', () => {
         expect(dataset.data[i]).toBe(test);
       }
     }
+  });
+});
+
+describe('removeDataset', () => {
+  let testData = { labels: [], datasets: [] };
+  let chartData;
+  beforeAll(() => {
+    for (let i = 0; i < 10; i++) {
+      testData = updateChartData(
+        '1d12',
+        100,
+        '#000001',
+        testData,
+        `testdata${i}`
+      );
+    }
+    chartData = removeDataset(
+      JSON.parse(JSON.stringify(testData)),
+      'testdata5'
+    );
+  });
+
+  test('removeDataset returns a chartJS data object', () => {
+    expect(chartData).toHaveProperty('labels');
+    expect(Array.isArray(chartData.labels)).toBeTruthy();
+
+    expect(chartData).toHaveProperty('datasets');
+    expect(Array.isArray(chartData.datasets)).toBeTruthy();
+
+    for (const data of chartData.datasets) {
+      expect(typeof data).toBe('object');
+      expect(data).not.toBeNull();
+
+      expect(data).toHaveProperty('label');
+      expect(typeof data.label).toBe('string');
+
+      expect(data).toHaveProperty('data');
+      expect(Array.isArray(data.data)).toBeTruthy();
+
+      expect(data).toHaveProperty('backgroundColor');
+      expect(typeof data.backgroundColor).toBe('string');
+
+      expect(data).toHaveProperty('borderColor');
+      expect(typeof data.borderColor).toBe('string');
+
+      expect(data).toHaveProperty('borderWidth');
+      expect(typeof data.borderWidth).toBe('number');
+
+      expect(data).toHaveProperty('rollData');
+      expect(typeof data.rollData).toBe('object');
+      expect(data).not.toBeNull();
+
+      expect(data).toHaveProperty('datasetID');
+      expect(typeof data.datasetID).toBe('string');
+    }
+  });
+
+  test('removeDataset returns a chartJS data object with one fewer dataset', () => {
+    expect(chartData.datasets.length).toBe(testData.datasets.length - 1);
+  });
+
+  test('removeDataset returns a chartJS data object with the specified dataset removed', () => {
+    expect(
+      testData.datasets.filter((d) => d.datasetID === 'testdata5').length
+    ).toBe(1);
+    expect(
+      chartData.datasets.filter((d) => d.datasetID === 'testdata5').length
+    ).toBe(0);
   });
 });
 

@@ -56,7 +56,12 @@ const updateDatasets = (datasets, labels) => {
   return newDatasets;
 };
 
-const updateChartData = (rollExpr, trials, color, chartData) => {
+const removeDataset = (chartData, id) => {
+  chartData.datasets = chartData.datasets.filter((d) => d.datasetID !== id);
+  return chartData;
+};
+
+const updateChartData = (rollExpr, trials, color, chartData, datasetID) => {
   const rawData = getRawData(rollExpr, trials);
   const tabData = tabulateData(rawData);
   const rollData = calcPercent(tabData, trials);
@@ -69,6 +74,7 @@ const updateChartData = (rollExpr, trials, color, chartData) => {
     borderColor: '#000000',
     borderWidth: 1,
     rollData,
+    datasetID,
   });
   chartData.datasets = updateDatasets(chartData.datasets, chartData.labels);
 
@@ -77,6 +83,7 @@ const updateChartData = (rollExpr, trials, color, chartData) => {
 
 export {
   updateChartData,
+  removeDataset,
   getRawData,
   tabulateData,
   calcPercent,
