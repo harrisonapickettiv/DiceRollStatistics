@@ -858,3 +858,87 @@ describe('Tests with roll("4dF+4t6")', () => {
     });
   });
 });
+
+describe('Tests with roll("+3d12")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('+3d12'));
+    }
+  });
+
+  test('roll("+3d12") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(3);
+    });
+  });
+
+  test('roll("+3d12") returns an object where the property "total" is a number between 3 and 36', () => {
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(3);
+      expect(total).toBeLessThanOrEqual(36);
+    });
+  });
+
+  test('roll("+3d12") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
+});
+
+describe('Tests with roll("-3d12")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('-3d12'));
+    }
+  });
+
+  test('roll("-3d12") returns an object where the property "results" has a length of 3', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(3);
+    });
+  });
+
+  test('roll("-3d12") returns an object where the property "total" is a number between -36 and -3', () => {
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-36);
+      expect(total).toBeLessThanOrEqual(-3);
+    });
+  });
+
+  test('roll("-3d12") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
+});
+
+describe('Tests with roll("-4d4+10")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('-4d4+10'));
+    }
+  });
+
+  test('roll("-4d4+10") returns an object where the property "results" has a length of 4', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(4);
+    });
+  });
+
+  test('roll("-4d4+10") returns an object where the property "total" is a number between -6 and 6', () => {
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-6);
+      expect(total).toBeLessThanOrEqual(6);
+    });
+  });
+
+  test('roll("-4d4+10") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
+});

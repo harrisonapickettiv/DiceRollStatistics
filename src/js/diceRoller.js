@@ -1,4 +1,4 @@
-const basicDiceRegexp = '(\\d+)?d(\\d+|F)';
+const basicDiceRegexp = '([+-])?(\\d+)?d(\\d+|F)';
 const keepRegexp = '(?:h(\\d+)|l(\\d+))?';
 const modifierRegexp = '(?:(\\+?-?\\d+)|(?:(\\*?)(\\d+)))?';
 const difficultyRegexp = '(?:d(\\d+)|m(\\d+))?';
@@ -41,6 +41,7 @@ const fateDice = (dice = 1) => {
 const roll = (exp) => {
   const [
     ,
+    prefix,
     dice,
     sides,
     keepHighest,
@@ -69,11 +70,14 @@ const roll = (exp) => {
     total = sum(results);
   }
 
-  if (modifier) {
-    total += parseInt(modifier);
+  if (prefix === '-') {
+    total *= -1;
   }
   if (multiply) {
     total *= multiple;
+  }
+  if (modifier) {
+    total += parseInt(modifier);
   }
 
   let success;
