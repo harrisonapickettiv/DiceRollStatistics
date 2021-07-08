@@ -55,6 +55,15 @@ const pruneOldData = (data, maxDatasets) => {
   return newData;
 };
 
+const exprTest = (rollExpr) => {
+  const splitExpr = rollExpr.split(' ');
+  let test = true;
+  for (const exp of splitExpr) {
+    test = test && diceRegexp.test(exp);
+  }
+  return test;
+};
+
 const validateInput = (input) => {
   let validInput = true;
 
@@ -72,7 +81,7 @@ const validateInput = (input) => {
     document.getElementById('maxDatasetsError').setAttribute('hidden', true);
   }
 
-  if (!input.rollExpr.match(diceRegexp)) {
+  if (!exprTest(input.rollExpr)) {
     document.getElementById('diceRegexpError').removeAttribute('hidden');
     validInput = false;
   } else {

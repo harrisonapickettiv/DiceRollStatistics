@@ -38,7 +38,7 @@ const fateDice = (dice = 1) => {
   return results;
 };
 
-const roll = (exp) => {
+const rollSingle = (exp) => {
   const [
     ,
     prefix,
@@ -89,6 +89,18 @@ const roll = (exp) => {
   }
 
   return target || negate ? { results, total, success } : { results, total };
+};
+
+const roll = (e) => {
+  const splitRoll = e.split(' ');
+  if (splitRoll.length === 1) return rollSingle(e);
+
+  const results = [];
+  for (const exp of splitRoll) {
+    results.push(roll(exp).total);
+  }
+  const total = sum(results);
+  return { results, total };
 };
 
 export { randInt, roll, diceRegexp };

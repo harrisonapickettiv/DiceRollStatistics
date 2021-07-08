@@ -942,3 +942,31 @@ describe('Tests with roll("-4d4+10")', () => {
     });
   });
 });
+
+describe('Tests with roll("2d6 +3d12 -4d4+10")', () => {
+  const diceRolls = [];
+  beforeAll(() => {
+    for (let i = 0; i < testCount; i++) {
+      diceRolls.push(roll('2d6 +3d12 -4d4+10'));
+    }
+  });
+
+  test('roll("2d6 +3d12 -4d4+10") returns an object where the property "results" has a length of 3', () => {
+    diceRolls.forEach(({ results }) => {
+      expect(results.length).toBe(3);
+    });
+  });
+
+  test('roll("2d6 +3d12 -4d4+10") returns an object where the property "total" is a number between -1 and 54', () => {
+    diceRolls.forEach(({ total }) => {
+      expect(total).toBeGreaterThanOrEqual(-1);
+      expect(total).toBeLessThanOrEqual(54);
+    });
+  });
+
+  test('roll("2d6 +3d12 -4d4+10") returns an object without the property "success"', () => {
+    diceRolls.forEach((diceRoll) => {
+      expect(diceRoll).not.toHaveProperty('success');
+    });
+  });
+});
