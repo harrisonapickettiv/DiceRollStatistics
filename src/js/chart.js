@@ -1,4 +1,5 @@
 import { updateChartData, removeDataset } from './histogram';
+import { diceRegexp } from './diceRoller';
 
 const { Chart, cuid, randomColor } = window;
 Chart.defaults.color = '#000000';
@@ -29,7 +30,7 @@ const createDataRemoveBtn = (datasetID, color, rollExpr) => {
   const div = document.createElement('div');
   const a = document.createElement('a');
   div.setAttribute('id', datasetID);
-  div.setAttribute('class', 'col p-1 m-1 rounded-left rounded-right');
+  div.setAttribute('class', 'col p-1 m-1 rounded');
   div.setAttribute('style', `background-color: ${color};`);
   a.setAttribute('class', 'btn btn-sm');
   a.innerHTML = `&times;&nbsp;${rollExpr}`;
@@ -54,14 +55,43 @@ const pruneOldData = (data, maxDatasets) => {
   return newData;
 };
 
+const validateInput = (input) => {
+  let validInput = true;
+
+  if (!Number.isInteger(input.trials) || input.trials < 1) {
+    document.getElementById('trialsError').removeAttribute('hidden');
+    validInput = false;
+  } else {
+    document.getElementById('trialsError').setAttribute('hidden', true);
+  }
+
+  if (!Number.isInteger(input.maxDatasets) || input.maxDatasets < 1) {
+    document.getElementById('maxDatasetsError').removeAttribute('hidden');
+    validInput = false;
+  } else {
+    document.getElementById('maxDatasetsError').setAttribute('hidden', true);
+  }
+
+  if (!input.rollExpr.match(diceRegexp)) {
+    document.getElementById('diceRegexpError').removeAttribute('hidden');
+    validInput = false;
+  } else {
+    document.getElementById('diceRegexpError').setAttribute('hidden', true);
+  }
+
+  return validInput;
+};
+
 const updateChart = (e) => {
   e.preventDefault();
 
-  const trials = document.getElementById('trials').value || 10000;
-  const rollExpr = document.getElementById('rollExpression').value || '4d6h3';
-  const maxDatasets = document.getElementById('maxDatasets').value || 5;
+  const trials = document.getElementById('trials').valueAsNumber;
+  const rollExpr = document.getElementById('rollExpression').value;
+  const maxDatasets = document.getElementById('maxDatasets').valueAsNumber;
   const datasetID = cuid();
   const color = selectColor();
+
+  if (!validateInput({ trials, rollExpr, maxDatasets })) return;
 
   createDataRemoveBtn(datasetID, color, rollExpr);
   diceChart.data = updateChartData(

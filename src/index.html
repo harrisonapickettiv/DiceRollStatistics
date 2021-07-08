@@ -137,7 +137,10 @@
                         />
                       </div>
                     </div>
-                    <div class="collapse multi-collapse" id="chartDataOptions">
+                    <div
+                      class="collapse multi-collapse mb-3"
+                      id="chartDataOptions"
+                    >
                       <div
                         id="reset-button"
                         class="btn btn-danger btn-outline-light btn-block mb-3"
@@ -146,6 +149,17 @@
                       </div>
                       <hr />
                       <div id="chartData" class="row mx-1"></div>
+                    </div>
+                    <div class="bg-danger rounded">
+                      <p hidden id="trialsError" class="text-light">
+                        Trials must be a numbrer greater than 0.
+                      </p>
+                      <p hidden id="maxDatasetsError" class="text-light">
+                        Max Datasets must be a number greater than 0.
+                      </p>
+                      <p hidden id="diceRegexpError" class="text-light">
+                        You must enter a valid dice expression. Try 2d12.
+                      </p>
                     </div>
                   </form>
                 </div>

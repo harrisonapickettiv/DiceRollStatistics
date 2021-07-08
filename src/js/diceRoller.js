@@ -87,4 +87,4 @@ const roll = (exp) => {
   return target || negate ? { results, total, success } : { results, total };
 };
 
-export { randInt, roll };
+export { randInt, roll, diceRegexp };
